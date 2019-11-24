@@ -2,6 +2,7 @@ package ua.edu.ucu.tries;
 
 
 import java.util.HashMap;
+
 import ua.edu.ucu.iterators.TrieIterator;
 
 public class RWayTrie implements Trie {

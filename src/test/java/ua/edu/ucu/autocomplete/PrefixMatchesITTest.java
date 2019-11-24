@@ -41,7 +41,7 @@ public class PrefixMatchesITTest {
         String pref = "a";
         String[] expected = new String[]{"a", "aa", "aab", "aaab", "aabb", "abab", "adddddd", "addddddddddd"};
         int i = 0;
-        for (String s: pm2.wordsWithPrefix(pref)) {
+        for (String s : pm2.wordsWithPrefix(pref)) {
             assertEquals(expected[i], s);
             i++;
         }
@@ -52,14 +52,14 @@ public class PrefixMatchesITTest {
         String pref = "a";
         String[] expected = new String[]{"a", "aa", "aab", "aaab", "aabb", "abab", "adddddd"};
         int i = 0;
-        for (String s: pm2.wordsWithPrefix(pref, 5)) {
+        for (String s : pm2.wordsWithPrefix(pref, 5)) {
             assertEquals(expected[i], s);
             i++;
         }
 
         expected = new String[]{"a", "aa", "aab", "aaab", "aabb", "abab", "adddddd", "addddddddddd"};
         i = 0;
-        for (String s: pm2.wordsWithPrefix(pref, 6)) {
+        for (String s : pm2.wordsWithPrefix(pref, 6)) {
             assertEquals(expected[i], s);
             i++;
         }
@@ -114,7 +114,6 @@ public class PrefixMatchesITTest {
         assertFalse(pm.contains("123"));
         assertEquals(pm.size(), 5);
     }
-
 
 
 }
