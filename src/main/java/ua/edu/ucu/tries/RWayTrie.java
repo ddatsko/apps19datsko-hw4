@@ -16,46 +16,42 @@ public class RWayTrie implements Trie {
             weight = -1;
         }
 
-        public Node(int weight) {
-            this();
-            this.weight = weight;
-        }
     }
 
     private Node head = new Node();
     private int size;
-    private int max_depth;
+    private int maxDepth;
 
     public RWayTrie() {
     }
 
 
     private Node getNode(String word) {
-        Node cur_node = head;
+        Node curNode = head;
         for (char c : word.toCharArray()) {
-            if (cur_node.map.containsKey(c)) {
-                cur_node = cur_node.map.get(c);
+            if (curNode.map.containsKey(c)) {
+                curNode = curNode.map.get(c);
             } else {
                 return null;
             }
         }
-        return cur_node;
+        return curNode;
     }
 
     @Override
     public void add(Tuple t) {
-        Node cur_node = head;
+        Node curNode = head;
         for (Character c : t.term.toCharArray()) {
-            if (!cur_node.map.containsKey(c)) {
-                cur_node.map.put(c, new Node());
+            if (!curNode.map.containsKey(c)) {
+                curNode.map.put(c, new Node());
             }
-            cur_node = cur_node.map.get(c);
+            curNode = curNode.map.get(c);
         }
-        if (cur_node.weight == -1) {
+        if (curNode.weight == -1) {
             size++;
         }
-        cur_node.weight = t.weight;
-        max_depth = Math.max(max_depth, t.term.length());
+        curNode.weight = t.weight;
+        maxDepth = Math.max(maxDepth, t.term.length());
     }
 
     @Override

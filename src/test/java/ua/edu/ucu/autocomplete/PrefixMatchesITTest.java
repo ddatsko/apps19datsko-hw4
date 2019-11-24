@@ -9,6 +9,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import ua.edu.ucu.tries.RWayTrie;
+import ua.edu.ucu.tries.Trie;
+import ua.edu.ucu.tries.Tuple;
 
 /**
  * @author Andrii_Rodionov
@@ -63,6 +65,17 @@ public class PrefixMatchesITTest {
             assertEquals(expected[i], s);
             i++;
         }
+    }
+
+    @Test
+    public void testWords() {
+        Trie trie = new RWayTrie();
+        String[] words = {"a", "b", "aa", "bb", "aab", "aaab", "aabb", "abab", "adddddd", "addddddddddd"};
+        for (String s : words) {
+            trie.add(new Tuple(s, s.length()));
+        }
+        Iterable<String> res = trie.words();
+        assertThat(res, containsInAnyOrder(words));
     }
 
     @Test
