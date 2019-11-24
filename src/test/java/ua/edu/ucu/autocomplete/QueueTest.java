@@ -1,6 +1,5 @@
 package ua.edu.ucu.autocomplete;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import ua.edu.ucu.collections.Queue;

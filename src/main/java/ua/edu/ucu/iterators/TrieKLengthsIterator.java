@@ -1,5 +1,6 @@
 package ua.edu.ucu.iterators;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 public class TrieKLengthsIterator implements Iterator<String> {
@@ -11,17 +12,27 @@ public class TrieKLengthsIterator implements Iterator<String> {
 
 
     public TrieKLengthsIterator(Iterator<String> iter, int k) {
-        this.k = k;
-        this.iter = iter;
-        findNext();
+        if (k >= 2) {
+            this.k = k;
+            this.iter = iter;
+            findNext();
+        }
+        else {
+            this.iter = Collections.emptyIterator();
+        }
     }
 
     private void findNext() {
-        next = iter.next();
-        if (!iter.hasNext() || (sizesNum == k && next.length() > maxSize)) {
+        if (!iter.hasNext()) {
             next = null;
             return;
         }
+        next = iter.next();
+        if (sizesNum == k && next.length() > maxSize) {
+            next = null;
+            return;
+        }
+
         if (next.length() > maxSize) {
             sizesNum++;
             maxSize = next.length();

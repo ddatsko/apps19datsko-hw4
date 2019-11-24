@@ -1,6 +1,6 @@
 package ua.edu.ucu.tries;
 
-
+import java.util.Collections;
 import java.util.HashMap;
 
 import ua.edu.ucu.iterators.TrieIterator;
@@ -27,6 +27,9 @@ public class RWayTrie implements Trie {
 
 
     private Node getNode(String word) {
+        if (word == null) {
+            return null;
+        }
         Node curNode = head;
         for (char c : word.toCharArray()) {
             if (curNode.map.containsKey(c)) {
@@ -80,6 +83,9 @@ public class RWayTrie implements Trie {
     @Override
     public Iterable<String> wordsWithPrefix(String s) {
         Node node = getNode(s);
+        if (node == null) {
+            return Collections::emptyIterator;
+        }
         return TrieIterator.words(node, s);
     }
 
