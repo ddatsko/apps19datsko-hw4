@@ -12,7 +12,7 @@ public class TrieKLengthsIterator implements Iterator<String> {
 
 
     public TrieKLengthsIterator(Iterator<String> iter, int k) {
-        if (k >= 2) {
+        if (k >= 1) {
             this.k = k;
             this.iter = iter;
             findNext();
@@ -52,11 +52,6 @@ public class TrieKLengthsIterator implements Iterator<String> {
     }
 
     public static Iterable<String> words(Iterable<String> iter, int k) {
-        return new Iterable<String>() {
-            @Override
-            public Iterator<String> iterator() {
-                return new TrieKLengthsIterator(iter.iterator(), k);
-            }
-        };
+        return () -> new TrieKLengthsIterator(iter.iterator(), k);
     }
 }

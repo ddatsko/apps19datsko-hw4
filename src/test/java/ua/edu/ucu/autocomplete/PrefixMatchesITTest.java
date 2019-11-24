@@ -54,13 +54,12 @@ public class PrefixMatchesITTest {
         assertEquals(pm.size(), 1);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWordsWithPrefix_String_K0() {
         String pref = "";
 
-        Iterable<String> result = pm.wordsWithPrefix(pref);
-        String[] expResult = {};
-        assertThat(result, containsInAnyOrder(expResult));
+        pm.wordsWithPrefix(pref);
+
     }
 
     @Test
@@ -75,10 +74,10 @@ public class PrefixMatchesITTest {
         }
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWordsWithPrefixOneSymbol() {
-        String pref = "a";
-        assertThat(pm2.wordsWithPrefix(pref), containsInAnyOrder(new Object[]{}));
+        String pref = "aaa";
+        pm2.wordsWithPrefix(pref, -1);
     }
 
     @Test

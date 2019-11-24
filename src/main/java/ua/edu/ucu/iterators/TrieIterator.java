@@ -49,12 +49,7 @@ public class TrieIterator implements Iterator<String> {
     }
 
     public static Iterable<String> words(RWayTrie.Node node, String s) {
-        return new Iterable<String>() {
-            @Override
-            public Iterator<String> iterator() {
-                return new TrieIterator(node, s);
-            }
-        };
+        return () -> new TrieIterator(node, s);
     }
 
 

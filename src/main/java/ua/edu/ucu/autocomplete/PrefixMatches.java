@@ -48,14 +48,17 @@ public class PrefixMatches {
 
     public Iterable<String> wordsWithPrefix(String pref) {
         if (pref.length() < 2) {
-            return Collections::emptyIterator;
+            throw new IllegalArgumentException("Prefix length less than 2");
         }
         return trie.wordsWithPrefix(pref);
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
         if (pref.length() < 2) {
-            return Collections::emptyIterator;
+            throw new IllegalArgumentException("Prefix length less than 2");
+        }
+        if (k < 0) {
+            throw new IllegalArgumentException("K < 0");
         }
         return TrieKLengthsIterator.words(trie.wordsWithPrefix(pref), k);
     }
