@@ -16,11 +16,15 @@ import ua.edu.ucu.tries.RWayTrie;
 public class PrefixMatchesITTest {
 
     private PrefixMatches pm;
+    private PrefixMatches pm2;
 
     @Before
     public void init() {
         pm = new PrefixMatches(new RWayTrie());
         pm.load("abc", "abce", "abcd", "abcde", "abcdef");
+
+        pm2 = new PrefixMatches(new RWayTrie());
+        pm2.load("a", "b", "aa", "bb", "aab", "aaab", "aabb", "abab", "adddddd", "addddddddddd");
     }
 
     @Test
@@ -28,11 +32,37 @@ public class PrefixMatchesITTest {
         String pref = "ab";
 
         Iterable<String> result = pm.wordsWithPrefix(pref);
-
         String[] expResult = {"abc", "abce", "abcd", "abcde", "abcdef"};
-
-
         assertThat(result, containsInAnyOrder(expResult));
+    }
+
+    @Test
+    public void testWordsWithPrefix() {
+        String pref = "a";
+        String[] expected = new String[]{"a", "aa", "aab", "aaab", "aabb", "abab", "adddddd", "addddddddddd"};
+        int i = 0;
+        for (String s: pm2.wordsWithPrefix(pref)) {
+            assertEquals(expected[i], s);
+            i++;
+        }
+    }
+
+    @Test
+    public void testWordsWithPrefixKLongDistance() {
+        String pref = "a";
+        String[] expected = new String[]{"a", "aa", "aab", "aaab", "aabb", "abab", "adddddd"};
+        int i = 0;
+        for (String s: pm2.wordsWithPrefix(pref, 5)) {
+            assertEquals(expected[i], s);
+            i++;
+        }
+
+        expected = new String[]{"a", "aa", "aab", "aaab", "aabb", "abab", "adddddd", "addddddddddd"};
+        i = 0;
+        for (String s: pm2.wordsWithPrefix(pref, 6)) {
+            assertEquals(expected[i], s);
+            i++;
+        }
     }
 
     @Test
@@ -46,5 +76,45 @@ public class PrefixMatchesITTest {
 
         assertThat(result, containsInAnyOrder(expResult));
     }
+
+    @Test
+    public void testPrefixMatchesSize() {
+        PrefixMatches pm = new PrefixMatches(new RWayTrie());
+        String[] s = new String[]{"a", "aa", "b", "bb", "cc"};
+        for (int i = 0; i < 5; i++) {
+            assertEquals(pm.size(), i);
+            pm.load(s[i]);
+        }
+        for (int i = 5; i >= 1; i--) {
+            assertEquals(pm.size(), i);
+            pm.delete(s[i - 1]);
+        }
+    }
+
+    @Test
+    public void testPrefixMatchesLoad() {
+        assertEquals(pm.load("123456"), 1);
+        assertEquals(pm.size(), 6);
+        assertEquals(pm.load("123456"), 0);
+        assertEquals(pm.size(), 6);
+    }
+
+    @Test
+    public void testPrefixMatchesDelete() {
+        assertTrue(pm.delete("abc"));
+        assertEquals(pm.size(), 4);
+        assertFalse(pm.delete("123"));
+        assertEquals(pm.size(), 4);
+    }
+
+    @Test
+    public void testPrefixMatchesContains() {
+        assertTrue(pm.contains("abc"));
+        assertEquals(pm.size(), 5);
+        assertFalse(pm.contains("123"));
+        assertEquals(pm.size(), 5);
+    }
+
+
 
 }

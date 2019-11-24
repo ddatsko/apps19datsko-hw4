@@ -20,8 +20,10 @@ public class PrefixMatches {
         for (String s : strings) {
             String[] words = s.split("\\s+");
             for (String word : words) {
-                trie.add(new Tuple(word, word.length()));
-                added++;
+                if (!trie.contains(s)) {
+                    trie.add(new Tuple(word, word.length()));
+                    added++;
+                }
             }
         }
         return added;
